@@ -56,8 +56,8 @@ replication_package/
 ├── README.md
 ├── .env.example                     # API configuration template
 ├── dataset/
-│   ├── full/commits/                 # 7,522 evaluation commits
-│   └── ablation/commits/             # 1,000 selected commits
+│   ├── full/commits/                # 7,522 evaluation commits
+│   └── ablation/commits/            # 1,000 selected commits
 ├── prompts/                         # Entity identification + 8 CMG settings
 ├── src/
 │   ├── view1/                       # Structural Dependency View

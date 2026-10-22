@@ -1,6 +1,6 @@
-# CAMGen
-
-**A Core Change-Aware Multi-View Framework for Commit Message Generation**
+<div align="center">
+  <h1 align="center"><span style="font-family: Consolas;">CAMGen</span>: A Core Change-Aware Multi-View Framework for Commit Message Generation</h1>
+</div>
 
 <div align="center">
     <a href="https://github.com/riverBag/CAMGen">

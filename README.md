@@ -216,7 +216,7 @@ DeepSeek-V3.2 for the view ablation and human evaluation.
 ```bibtex
 @misc{xiong2026camgen,
   title         = {{CAMGen}: A Core Change-Aware Multi-View Framework for Commit Message Generation},
-  author        = {Xiong, Bo and Chen, Weisheng and Ren, Zongen and and Zhu, Yifeng and Li, Xutian and Wang, Chong and Liang, Peng},
+  author        = {Xiong, Bo and Chen, Weisheng and Ren, Zongen and and Zhu, Yifeng and Li, Xutian and Yan, Runbang and Wang, Chong and Liang, Peng},
   year          = {2026},
   archivePrefix = {arXiv},
   eprint        = {},

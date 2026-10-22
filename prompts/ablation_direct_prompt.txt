@@ -1,0 +1,13 @@
+You are a developer, and your task is to write a concise commit message based on the code changes (in .diff format) in a commit.
+
+## Input Format:
+
+--- START OF CODE DIFF ---
+{QUERY_DIFF}
+--- END OF CODE DIFF ---
+
+## Output Format:
+
+A concise commit message describing the code changes, wrapped in <message> </message> tags.
+E.g. <message>Fixed a bug in the user authentication flow</message>
+E.g. <message>feat(server): Add new API endpoint for user registration</message>

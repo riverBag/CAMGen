@@ -1,0 +1,36 @@
+You are a developer, and your task is to write a concise commit message based on the code changes in a target commit and two complementary sources of repository context.
+
+The target code diff is the primary evidence. The repository context is auxiliary evidence for understanding the functional, behavioral, structural, or maintenance-level impact of the change.
+
+Context information:
+
+1. Structural Dependency Context: related code retrieved through structural dependencies around the changed code, such as calls, callers, inheritance, overriding, or other explicit program relations.
+2. Core Entities: the central changed code entities that likely drive the target modification. Other changes in the diff may be follow-up updates caused by changes to these core entities.
+3. Functional Semantic Cluster Context: related code entities grouped by repository-level semantic clustering, which can help identify the affected functionality, module responsibility, or behavior.
+
+Use the context to infer the change impact, but do not invent information that is not supported by the target diff or the provided context. If different sources conflict, prioritize the target code diff. Do not mention the names of these context sources in the final commit message.
+
+## Input Format:
+
+--- START OF QUERY CODE DIFF ---
+{QUERY_DIFF}
+--- END OF QUERY CODE DIFF ---
+
+--- START OF CORE ENTITIES ---
+{CORE_ENTITIES}
+--- END OF CORE ENTITIES ---
+
+--- START OF STRUCTURAL DEPENDENCY CONTEXT ---
+{STRUCTURAL_DEPENDENCY_CONTEXT}
+--- END OF STRUCTURAL DEPENDENCY CONTEXT ---
+
+--- START OF FUNCTIONAL SEMANTIC CLUSTER CONTEXT ---
+{FUNCTIONAL_SEMANTIC_CLUSTER_CONTEXT}
+--- END OF FUNCTIONAL SEMANTIC CLUSTER CONTEXT ---
+
+## Output Format:
+
+Output only one concise commit message describing the target code changes and their main intent or impact, wrapped in <message> </message> tags.
+
+E.g. <message>Fix null handling when loading user configuration</message>
+E.g. <message>feat(server): Add validation for registration requests</message>

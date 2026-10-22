@@ -1,0 +1,46 @@
+You are a developer, and your task is to write a concise commit message based on the code changes in a target commit and two complementary sources of repository context.
+
+The target code diff is the primary evidence. The repository context is auxiliary evidence for understanding the functional, behavioral, structural, or maintenance-level impact of the change.
+
+Context information:
+
+1. Core Entities: the central changed code entities that likely drive the target modification. Other changes in the diff may be follow-up updates caused by changes to these core entities.
+2. Functional Semantic Cluster Context: related code entities grouped by repository-level semantic clustering, which can help identify the affected functionality, module responsibility, or behavior.
+3. Evolutionary Exemplar Context: a similar historical commit, including its code diff and human-written commit message, which can help with project-specific terminology, intent expression, and commit message style.
+
+Use the context to infer the change impact, but do not invent information that is not supported by the target diff or the provided context. If different sources conflict, prioritize the target code diff. Do not mention the names of these context sources in the final commit message. Do not copy the exemplar commit message unless it accurately describes the target change.
+
+## Input Format:
+
+--- START OF QUERY CODE DIFF ---
+{QUERY_DIFF}
+--- END OF QUERY CODE DIFF ---
+
+--- START OF CORE ENTITIES ---
+{CORE_ENTITIES}
+--- END OF CORE ENTITIES ---
+
+--- START OF FUNCTIONAL SEMANTIC CLUSTER CONTEXT ---
+{FUNCTIONAL_SEMANTIC_CLUSTER_CONTEXT}
+--- END OF FUNCTIONAL SEMANTIC CLUSTER CONTEXT ---
+
+--- START OF EVOLUTIONARY EXEMPLAR CONTEXT ---
+=== START OF SIMILAR COMMIT ===
+
+--- START OF SIMILAR CODE DIFF ---
+{SIMILAR_DIFF}
+--- END OF SIMILAR CODE DIFF ---
+
+--- START OF SIMILAR COMMIT MESSAGE ---
+{SIMILAR_MESSAGE}
+--- END OF SIMILAR COMMIT MESSAGE ---
+
+=== END OF SIMILAR COMMIT ===
+--- END OF EVOLUTIONARY EXEMPLAR CONTEXT ---
+
+## Output Format:
+
+Output only one concise commit message describing the target code changes and their main intent or impact, wrapped in <message> </message> tags.
+
+E.g. <message>Fix null handling when loading user configuration</message>
+E.g. <message>feat(server): Add validation for registration requests</message>

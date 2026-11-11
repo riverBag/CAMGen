@@ -1,0 +1,13 @@
+name: camgen-history
+channels:
+  - conda-forge
+dependencies:
+  - python=3.12
+  - pip
+  - pip:
+      - numpy
+      - torch
+      - transformers
+      - sentence-transformers
+      - tqdm
+      - tiktoken

@@ -1,0 +1,19 @@
+You are a developer preparing a concise commit message for the target commit represented by the diff below.
+
+Summarize the principal code change and convey its main intent or impact when supported by the diff. Consider effects on functionality, runtime behavior, code structure, or maintenance where the changes provide sufficient evidence.
+
+Ground the message in the supplied diff. Do not add motivations or consequences that the changes do not support. Describe the target commit itself; omit commentary about the input or your analysis.
+
+## Input Format:
+
+--- START OF QUERY CODE DIFF ---
+{QUERY_DIFF}
+--- END OF QUERY CODE DIFF ---
+
+## Output Format:
+
+Return a single concise commit message between <message> and </message>, with no surrounding explanation.
+
+Examples of response format:
+<message>Fix null handling when loading user configuration</message>
+<message>feat(server): Add validation for registration requests</message>

@@ -1,0 +1,67 @@
+
+<diff>
+{DIFF_TEXT}
+</diff>
+
+Role:
+You are an expert Code Analyzer for a Commit Message Generation system. Your specific task is **"Core Entity Identification"**.
+
+**Context & Goal:**
+We are building a "Dual-View Context Retrieval" system. The entities you identify will serve as anchors to retrieve relevant code context.
+- **CRITICAL:** A single commit often modifies **MULTIPLE** distinct Core Entities (e.g., modifying both a Service class and a Utility function).
+- **Goal:** You must identify **ALL** Core Entities that represent a primary logic change, feature addition, or bug fix. 
+- **Constraint:** You must strictly filter out "Ripple Effects" (files changed solely to adapt to the core changes, such as updating a function call signature or importing a new module).
+
+**Definition of "Core Entity":**
+A **Core Entity** is a Class, Struct, Interface, or Function where the *root intent* of the commit resides.
+- It is the **Subject** of the change (e.g., "Refactor X" or "Implement Y").
+- It involves **Definition** or **Internal Logic** changes, not just **Usage/Call Site** changes.
+
+**Selection Criteria (Filter Logic):**
+1. **Definition vs. Call Site:**
+   - If `func A` is modified to fix a bug or add logic, it IS a Core Entity.
+   - If `func B` is modified *only* because it calls `func A` (e.g., passing a new argument), `func B` is NOT a Core Entity (it is Impact/Ripple Effect).
+2. **Source vs. Test/Config:**
+   - Prioritize Source Code. 
+   - Ignore configuration files (e.g., pom.xml, package.json) unless the commit is exclusively about configurations.
+   - Only select Test Code if the commit is *purely* adding/fixing tests.
+3. **Logic vs. Trivial Changes:**
+   - Ignore changes that only involve imports, spacing, formatting, comments, or simple getters/setters without business logic.
+
+Instructions:
+1. Analysis Step (File-by-File):
+   - Scan the **ENTIRE** diff. 
+   - Evaluate **EACH** modified file sequentially. Ask: "Is this specific modification a root cause (Core) or a reaction to another change (Impact)?"
+   - For standalone functions (e.g., in Python, Go, C), note that there might not be an enclosing class.
+
+2. Extraction Step:
+   - Compile a comprehensive list of **ALL** identified Core Entities.
+   - Output as a strictly valid JSON array.
+
+Output Format Requirements:
+- For a **Function/Method**: `{{"type": "function", "path": "<file_path>", "name": "<function_name>", "class_name": "<enclosing_class_name_or_null>"}}`
+- For a **Class/Struct/Interface**: `{{"type": "class", "path": "<file_path>", "name": "<class_name>"}}`
+
+Respond EXACTLY in the following format:
+
+[start_of_analysis]
+File-by-File Analysis:
+- `src/AuthService.java`: `login` logic is fundamentally changed to support OAuth -> Core.
+- `src/UserUtil.java`: `validate` regex is updated to fix a bug -> Core.
+- `src/LoginController.java`: Updated merely to pass a new argument to `AuthService.login` -> Impact/Ignored.
+- `scripts/utils.py`: Standalone function `parse_data` rewritten -> Core (class_name: null).
+Conclusion: 3 Core Entities identified.
+[end_of_analysis]
+
+[start_of_core_entities]
+[
+  {{"type": "function", "path": "src/AuthService.java", "name": "login", "class_name": "AuthService"}},
+  {{"type": "function", "path": "src/UserUtil.java", "name": "validate", "class_name": "UserUtil"}},
+  {{"type": "function", "path": "scripts/utils.py", "name": "parse_data", "class_name": null}}
+]
+[end_of_core_entities]
+
+Notes:
+- **Exhaustiveness:** If the diff contains core logic changes across multiple distinct files, output ALL of them. Do not stop at the first one.
+- **Null Safety:** If a function does not belong to a class (e.g., module-level functions), explicitly output `null` for `class_name`.
+- **Class Name Inference:** Infer class names from the file content or file paths if not explicitly visible in the diff hunk.
